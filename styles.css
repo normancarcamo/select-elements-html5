@@ -1,0 +1,15 @@
+.item {
+  background-color: #ebe9e9;
+  height: 30px;
+  margin-bottom: 1px;
+  outline-style: none;
+  user-select: none;
+}
+
+.item-highlighted {
+  background-color: #ffbc99;
+}
+
+.item-pressed {
+  background-color: #f99661;
+}
