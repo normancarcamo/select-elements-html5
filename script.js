@@ -1,48 +1,48 @@
 function unhighlightAllElements(el, index) {
   // We search and get the parent of the element to be able to
   // touch all their child nodes:
-  el = el.parentNode.firstChild;
+  el = el.parentNode.firstChild
 
   // this block doesn't need explaing anything due it's simplicity.
   do {
     if (el.tagName === 'DIV') {
-      el.classList.remove("item-pressed");
-      el.classList.remove("item-highlighted");
+      el.classList.remove("item-pressed")
+      el.classList.remove("item-highlighted")
     }
-  } while(el = el.nextSibling);
-};
+  } while(el = el.nextSibling)
+}
 
 function unmarkNextSiblings(el, index) {
   do {
     if (el.tagName === 'DIV') {
       if (el.tabIndex < index.tabIndex) {
-        el.classList.remove("item-highlighted");
-      };
-    };
-  } while(el = el.previousSibling);
-};
+        el.classList.remove("item-highlighted")
+      }
+    }
+  } while(el = el.previousSibling)
+}
 
 function unmarkPreviousSiblings(el, index) {
   do {
     if (el.tagName === 'DIV') {
       if (el.tabIndex > index.tabIndex) {
-        el.classList.remove("item-highlighted");
-      };
-    };
-  } while(el = el.nextSibling);
-};
+        el.classList.remove("item-highlighted")
+      }
+    }
+  } while(el = el.nextSibling)
+}
 
 function markPreviousSiblings(el, index) {
-  unmarkNextSiblings(el, index);
-  unmarkPreviousSiblings(el, index);
+  unmarkNextSiblings(el, index)
+  unmarkPreviousSiblings(el, index)
   do {
     if (el.tagName === 'DIV') {
       if (el.tabIndex > index.tabIndex) {
-        el.classList.add("item-highlighted");
-      };
-    };
-  } while(el = el.previousSibling);
-};
+        el.classList.add("item-highlighted")
+      }
+    }
+  } while(el = el.previousSibling)
+}
 
 function markNextSiblings(el, index) {
   unmarkNextSiblings(el, index);
@@ -50,17 +50,17 @@ function markNextSiblings(el, index) {
   do {
     if (el.tagName === 'DIV') {
       if (el.tabIndex < index.tabIndex) {
-        el.classList.add("item-highlighted");
-      };
-    };
-  } while(el = el.nextSibling);
-};
+        el.classList.add("item-highlighted")
+      }
+    }
+  } while(el = el.nextSibling)
+}
 
 // Get all elements with the className "item":
-var div = document.querySelectorAll(".item");
+var div = document.querySelectorAll(".item")
 
 // "el": used to hold an instance selected at first click.
-var el = null;
+var el = null
 
 // This loop helps us to iterate through all the elements:
 for(var i = 0; i< div.length; i++) {
@@ -69,7 +69,7 @@ for(var i = 0; i< div.length; i++) {
   // to use it in the event listeners later:
   (function(i) {
 
-    // Event: "moursedown"
+    // Event: "mousedown"
     div[i].addEventListener('mousedown', function(e) {
 
       // If the current target doesn't have the className "item-pressed", then:
@@ -79,15 +79,15 @@ for(var i = 0; i< div.length; i++) {
         if (!el) { // #1
 
           // Unmark all the previously marked (if they were marked)
-          unhighlightAllElements(e.target);
+          unhighlightAllElements(e.target)
 
           // Add the className "item-pressed"
           // to the current element clicked
-          e.target.classList.add("item-pressed");
+          e.target.classList.add("item-pressed")
 
           // As "el" previously didn't exists, then
           // now it will hold the instance of this element:
-          el = e.target;
+          el = e.target
 
         } else { // end.
           // Due to the "el" now holds an instance of first element clicked,
@@ -97,22 +97,22 @@ for(var i = 0; i< div.length; i++) {
           if (e.target.tabIndex > el.tabIndex) {
 
             // Highlight from the first element up-to this element:
-            markPreviousSiblings(e.target, el);
+            markPreviousSiblings(e.target, el)
 
           } else { // the current element is behind of the first element:
 
             // Highlight from the current element up-to the first element:
-            markNextSiblings(e.target, el);
-          };
+            markNextSiblings(e.target, el)
+          }
 
           // Now that we have marked all the necessary elements we need to
           // highlight the current element to distinguish it better:
-          e.target.classList.add("item-pressed");
+          e.target.classList.add("item-pressed")
 
           // As the process went well, now we can unset the first element,
           // having said that, we can re-select it as much as we need it again:
-          el = null;
-        };
+          el = null
+        }
 
       } else {
         // Due the current element have already the className "item-pressed"
@@ -122,10 +122,10 @@ for(var i = 0; i< div.length; i++) {
         if (el) { // #3
 
           // Unhighlight all the previous elements highlighted:
-          unhighlightAllElements(el);
+          unhighlightAllElements(el)
 
           // unset the value of this variable:
-          el = null;
+          el = null
 
         } else { // #2
           // The variable "el" is currently unset.
@@ -133,20 +133,20 @@ for(var i = 0; i< div.length; i++) {
           // When the click is performed in the first or in the last element:
 
           // Unhighlight all the previous elements highlighted:
-          unhighlightAllElements(e.target);
+          unhighlightAllElements(e.target)
 
           // Add the className "item-pressed"
           // to the current element clicked
-          e.target.classList.add("item-pressed");
+          e.target.classList.add("item-pressed")
 
           // As "el" previously was unset,
           // now it will hold the instance of this element:
-          el = e.target;
-        };
-      };
-    });
+          el = e.target
+        }
+      }
+    })
 
-    // Event: "moursedown"
+    // Event: "mouseover"
     // Due the mouse will be passing over the elements
     // we are going to highlight the elements that are below of it:
     div[i].addEventListener('mouseover', function(e) {
@@ -159,10 +159,21 @@ for(var i = 0; i< div.length; i++) {
 
           // Add the className "item-highlighted"
           // to the current element
-          e.target.classList.add("item-highlighted");
-        };
-      };
-    });
+          e.target.classList.add("item-highlighted")
+        }
 
-  })(i);
-};
+        // This conditions are used to unhighlight the elements
+        // that are next to the first element selected or behind it:
+
+        if (e.target.tabIndex >= el.tabIndex) {
+          // Highlight from the first element up-to this element:
+          markPreviousSiblings(e.target, el)
+        } else {
+          // Highlight from the current element up-to the first element:
+          markNextSiblings(e.target, el)
+        }
+      }
+    })
+
+  })(i)
+}
